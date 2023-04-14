@@ -1,5 +1,10 @@
-const BlogPostSchema = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
     const BlogPost = sequelize.define('BlogPost', {
+        id: {
+            autoIncrement: true,
+            primaryKey: true,
+            type: DataTypes.INTEGER
+          },
         title: DataTypes.STRING,
         content: DataTypes.STRING,
         userId: DataTypes.INTEGER,
@@ -12,8 +17,8 @@ const BlogPostSchema = (sequelize, DataTypes) => {
     });
     
     BlogPost.associate = (models) => {
-        BlogPost.belongsToMany(models.User, { foreignKey: 'userId', as: 'user' });
-        BlogPost.hasOne(models.postCategories, { foreignKey: 'postId', as: 'post' });
+        BlogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+        BlogPost.hasMany(models.PostCategory, { foreignKey: 'postId', as: 'post' });
     };
     
     return BlogPost;

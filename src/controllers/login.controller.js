@@ -1,9 +1,9 @@
-const login = require('../services/login.service');
+const { loginService } = require('../services');
 
 const loginss = async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     try {
-        const user = await login(username, password);
+        const user = await loginService.login(email, password);
         
         if (user.token) {
         
@@ -14,6 +14,7 @@ const loginss = async (req, res) => {
         return res.status(user.status).json({ message: user.message });
 
     } catch(e) {
+        console.log(e);
         return { status: 400, message: e.message }
     }
 }

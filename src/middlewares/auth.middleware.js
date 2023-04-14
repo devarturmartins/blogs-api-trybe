@@ -8,7 +8,7 @@ const authMiddleware = async (req, res, next) => {
     }
     
     
-    const isValid = validateToken(token);
+    const isValid = validateToken(authorization);
     
     if (!isValid) {
         return res.status(401).json({ message: isValid });
