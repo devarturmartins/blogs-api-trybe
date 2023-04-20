@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+
 const secret = process.env.JWT_SECRET;
 const jwtConfig = {
     expiresIn: '7d',
@@ -13,9 +14,15 @@ const generateToken = (payload) => {
 
 const validateToken = (token) => {
     if (!token) {
-        return { message: 'token not found' }
+        return { status: 401, message: 'Token not found' };
     }
+
     const isValid = jwt.verify(token, secret);
+
+    // if (!isValid) {
+    //     return { status: 401, message: 'Expired or invalid token' }
+    // }
+    
     return isValid;
 };
 

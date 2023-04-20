@@ -6,18 +6,13 @@ const loginss = async (req, res) => {
         const user = await loginService.login(email, password);
         
         if (user.token) {
-        
-            return res.status(user.status).json({ token: user.token })
-
+            return res.status(user.status).json({ token: user.token });
         }
-
         return res.status(user.status).json({ message: user.message });
-
-    } catch(e) {
-        console.log(e);
-        return { status: 400, message: e.message }
+    } catch (e) {
+        return { status: 400, message: e.message };
     }
-}
+};
  
 module.exports = {
     loginss,
